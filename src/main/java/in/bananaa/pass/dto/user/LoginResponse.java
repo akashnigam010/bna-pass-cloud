@@ -4,16 +4,16 @@ import in.bananaa.pass.dto.GenericResponse;
 
 public class LoginResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private Integer id;
 	private String name;
 	private String location;
 	private String accessToken;
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

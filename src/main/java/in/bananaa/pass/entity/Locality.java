@@ -19,10 +19,10 @@ public class Locality implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "NAME")
+	@Column(name = "NAME", nullable = false)
 	private String name;
 	
-	@Column(name = "CITY")
+	@Column(name = "CITY", nullable = false)
 	private String city;
 
 	public Integer getId() {

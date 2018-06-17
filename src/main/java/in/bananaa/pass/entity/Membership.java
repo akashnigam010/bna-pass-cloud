@@ -16,7 +16,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "MEMBERSHIP", schema = "bna", indexes = {
-		@Index(name = "IDX_MEMBERSHIP_USER_MEMBER", columnList = "USER_ID, MEMBER_ID") })
+		@Index(name = "IDX_UNQ_USER_MEMBER", columnList = "USER_ID, MEMBER_ID"),
+		@Index(name = "IDX_UNQ_SCAN_CODE", columnList = "SCAN_CODE") })
 public class Membership extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -51,11 +52,14 @@ public class Membership extends BaseEntity implements Serializable {
 	@Column(name = "ENTRIES_PER_DAY", nullable = false)
 	private Integer entriesPerDay = 1;
 
-	@Column(name = "START_DATE")
+	@Column(name = "START_DATE", nullable = false)
 	private Calendar startDate;
 
-	@Column(name = "END_DATE")
+	@Column(name = "END_DATE", nullable = false)
 	private Calendar endDate;
+
+	@Column(name = "SCAN_CODE", nullable = false)
+	private String scanCode;
 
 	public Membership() {
 

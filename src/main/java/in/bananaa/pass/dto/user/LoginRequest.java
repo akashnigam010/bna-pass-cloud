@@ -1,14 +1,14 @@
 package in.bananaa.pass.dto.user;
 
 public class LoginRequest {
-	private String id;
+	private Integer id;
 	private String password;
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

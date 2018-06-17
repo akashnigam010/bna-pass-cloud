@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Description extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "DESCRIPTION")
+	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 	
 	public Description() {

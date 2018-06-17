@@ -19,7 +19,7 @@ public class Contact implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "PHONE")
+	@Column(name = "PHONE", nullable = false)
 	private String phone;
 
 	@Column(name = "EMAIL")

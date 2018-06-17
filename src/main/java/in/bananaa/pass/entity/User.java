@@ -21,15 +21,15 @@ public class User extends BaseEntity implements Serializable {
 		SWIMMING_POOL, GYM;
 	}
 
-	@Column(name = "NAME")
+	@Column(name = "NAME", nullable = false)
 	private String name;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ADDRESS_ID")
+	@JoinColumn(name = "ADDRESS_ID", nullable = false)
 	private Address address;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "CONTACT_ID")
+	@JoinColumn(name = "CONTACT_ID", nullable = false)
 	private Contact contact;
 
 	@Column(name = "IMAGE_URL")
@@ -38,12 +38,15 @@ public class User extends BaseEntity implements Serializable {
 	@Column(name = "THUMBNAIL")
 	private String thumbnail;
 
-	@Column(name = "TYPE")
+	@Column(name = "TYPE", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private UserType type;
 
-	@Column(name = "IS_ACTIVE")
+	@Column(name = "IS_ACTIVE", nullable = false)
 	private Boolean isActive;
+
+	@Column(name = "PASSWORD", nullable = false)
+	private String password;
 
 	public User() {
 
@@ -107,5 +110,18 @@ public class User extends BaseEntity implements Serializable {
 
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getLocation() {
+		Locality locality = this.getAddress().getLocality();
+		return locality.getName() + " " + locality.getCity();
 	}
 }

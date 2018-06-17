@@ -11,7 +11,7 @@ import in.bananaa.pass.helper.exception.BusinessException;
 public class LoginValidator {
 
 	public void validate(LoginRequest request) throws BusinessException {
-		if (StringUtils.isBlank(request.getId()) || StringUtils.isBlank(request.getPassword())) {
+		if (request.getId() == null || StringUtils.isBlank(request.getPassword())) {
 			throw new BusinessException(GenericErrorCodeType.REQUEST_VALIDATION_FAILED);
 		}
 	}

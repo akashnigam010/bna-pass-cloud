@@ -21,7 +21,7 @@ public class Address implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "ADDRESS")
+	@Column(name = "ADDRESS", nullable = false)
 	private String address;
 
 	@ManyToOne

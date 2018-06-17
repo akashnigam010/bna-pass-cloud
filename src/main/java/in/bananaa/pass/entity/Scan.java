@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SCAN", schema = "bna", indexes = {
-		@Index(name = "IDX_SCAN_USER_MEMBER", columnList = "USER_ID, MEMBER_ID") })
+		@Index(name = "IDX_UNQ_USER_MEMBER", columnList = "USER_ID, MEMBER_ID") })
 public class Scan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class Scan implements Serializable {
 	@JoinColumn(name = "MEMBER_ID", nullable = false)
 	private Member member;
 
-	@Column(name = "CREATED_DATETIME")
+	@Column(name = "CREATED_DATETIME", nullable = false)
 	private Calendar createdDateTime;
 
 	public Integer getId() {
