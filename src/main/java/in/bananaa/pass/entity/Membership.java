@@ -8,13 +8,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MEMBERSHIP", schema = "bna")
+@Table(name = "MEMBERSHIP", schema = "bna", indexes = {
+		@Index(name = "IDX_MEMBERSHIP_USER_MEMBER", columnList = "USER_ID, MEMBER_ID") })
 public class Membership extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

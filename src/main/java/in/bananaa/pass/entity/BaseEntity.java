@@ -18,10 +18,10 @@ public class BaseEntity implements Serializable {
 	@Column(name = "ID", unique = true, nullable = false)
 	private Integer id;
 
-	@Column(name = "CREATED_DATETIME")
+	@Column(name = "CREATED_DATETIME", nullable = false)
 	private Calendar createdDateTime;
 
-	@Column(name = "UPDATED_DATETIME")
+	@Column(name = "UPDATED_DATETIME", nullable = false)
 	private Calendar updatedDateTime;
 
 	public BaseEntity() {

@@ -8,12 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SCAN", schema = "bna")
+@Table(name = "SCAN", schema = "bna", indexes = {
+		@Index(name = "IDX_SCAN_USER_MEMBER", columnList = "USER_ID, MEMBER_ID") })
 public class Scan implements Serializable {
 	private static final long serialVersionUID = 1L;
 

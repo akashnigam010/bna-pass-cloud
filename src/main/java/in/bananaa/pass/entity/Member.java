@@ -5,14 +5,15 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MEMBER", schema = "bna")
+@Table(name = "MEMBER", schema = "bna", indexes = { @Index(name = "IDX_UNQ_SCAN_CODE", columnList = "SCAN_CODE") })
 public class Member extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "FIRST_NAME")
+	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 
 	@Column(name = "LAST_NAME")
@@ -32,6 +33,9 @@ public class Member extends BaseEntity implements Serializable {
 
 	@Column(name = "ADDRESS")
 	private String address;
+
+	@Column(name = "SCAN_CODE", nullable = false)
+	private String scanCode;
 
 	public Member() {
 
