@@ -1,7 +1,6 @@
-package in.bananaa.pass.api.login;
+package in.bananaa.pass.dto.user;
 
 public class LoginRequest {
-	
 	private String id;
 	private String password;
 

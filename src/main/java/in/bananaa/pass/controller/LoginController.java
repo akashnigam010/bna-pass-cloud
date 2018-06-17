@@ -1,39 +1,34 @@
 package in.bananaa.pass.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import in.bananaa.pass.api.login.LoginRequest;
-import in.bananaa.pass.api.login.StatusResponse;
-import in.bananaa.pass.api.response.LoginResponse;
+import in.bananaa.pass.dto.user.LoginRequest;
+import in.bananaa.pass.dto.user.LoginResponse;
 import in.bananaa.pass.helper.exception.BusinessException;
-import in.bananaa.pass.security.JwtHelper;
+import in.bananaa.pass.service.LoginService;
+import in.bananaa.pass.validator.LoginValidator;
 
 @RestController
 @RequestMapping(value = "/user")
 public class LoginController extends GenericController {
 
-	@RequestMapping(value = "/hello", method = RequestMethod.GET, headers = HEADER)
-	public StatusResponse hello() {
-		return responseHelper.success(new StatusResponse());
-	}
+	@Autowired
+	private LoginService service;
+
+	@Autowired
+	private LoginValidator validator;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, headers = HEADER)
 	public LoginResponse login(@RequestBody LoginRequest request) {
-		LoginResponse response = new LoginResponse();
 		try {
-			response.setId("123");
-			response.setName("Seasons");
-			response.setAccessToken(getAccessToken(response));
+			validator.validate(request);
+			return responseHelper.success(service.login(request));
 		} catch (BusinessException e) {
-			return responseHelper.failure(response, e);
+			return responseHelper.failure(new LoginResponse(), e);
 		}
-		return responseHelper.success(response);
-	}
-
-	private String getAccessToken(LoginResponse response) throws BusinessException {
-		return JwtHelper.createJsonWebTokenForUser(response.getId(), response.getName());
 	}
 }

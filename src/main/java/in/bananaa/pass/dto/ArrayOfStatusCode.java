@@ -1,4 +1,4 @@
-package in.bananaa.pass.api.login;
+package in.bananaa.pass.dto;
 
 import java.util.List;
 

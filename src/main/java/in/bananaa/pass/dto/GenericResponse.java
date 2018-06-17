@@ -1,8 +1,6 @@
-package in.bananaa.pass.api.response;
+package in.bananaa.pass.dto;
 
 import java.io.Serializable;
-
-import in.bananaa.pass.api.login.ArrayOfStatusCode;
 
 public class GenericResponse implements Serializable {
 	private static final long serialVersionUID = 1L;

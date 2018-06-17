@@ -1,6 +1,4 @@
-package in.bananaa.pass.api.login;
-
-import in.bananaa.pass.api.response.GenericResponse;
+package in.bananaa.pass.dto;
 
 public class StatusResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;

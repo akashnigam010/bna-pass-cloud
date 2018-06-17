@@ -18,8 +18,8 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 
-import in.bananaa.pass.api.type.GenericErrorCodeType;
-import in.bananaa.pass.api.type.RoleType;
+import in.bananaa.pass.dto.type.GenericErrorCodeType;
+import in.bananaa.pass.dto.type.RoleType;
 import in.bananaa.pass.helper.exception.BusinessException;
 import net.oauth.jsontoken.Checker;
 import net.oauth.jsontoken.JsonToken;

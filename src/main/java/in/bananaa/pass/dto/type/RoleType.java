@@ -1,4 +1,4 @@
-package in.bananaa.pass.api.type;
+package in.bananaa.pass.dto.type;
 
 public enum RoleType {
 	ADMIN(1, "ADMIN"),

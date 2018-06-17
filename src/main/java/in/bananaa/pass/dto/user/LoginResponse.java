@@ -1,9 +1,12 @@
-package in.bananaa.pass.api.response;
+package in.bananaa.pass.dto.user;
+
+import in.bananaa.pass.dto.GenericResponse;
 
 public class LoginResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
+	private String location;
 	private String accessToken;
 
 	public String getId() {
@@ -20,6 +23,14 @@ public class LoginResponse extends GenericResponse {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getAccessToken() {

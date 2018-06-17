@@ -7,17 +7,16 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
-
 @SpringBootApplication
-public class BananaaPassJavaCloudServerApplication extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BananaaPassJavaCloudServerApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(BananaaPassJavaCloudServerApplication.class);
+        return application.sources(Application.class);
     }
 	
 	@Bean

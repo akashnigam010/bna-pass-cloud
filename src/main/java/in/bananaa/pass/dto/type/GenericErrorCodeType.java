@@ -1,4 +1,4 @@
-package in.bananaa.pass.api.type;
+package in.bananaa.pass.dto.type;
 
 import in.bananaa.pass.helper.BusinessErrorCode;
 

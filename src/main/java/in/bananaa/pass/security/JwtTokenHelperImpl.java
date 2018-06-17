@@ -14,8 +14,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import in.bananaa.pass.api.type.GenericErrorCodeType;
-import in.bananaa.pass.api.type.RoleType;
+import in.bananaa.pass.dto.type.GenericErrorCodeType;
+import in.bananaa.pass.dto.type.RoleType;
 import in.bananaa.pass.helper.exception.BusinessException;
 
 @Service

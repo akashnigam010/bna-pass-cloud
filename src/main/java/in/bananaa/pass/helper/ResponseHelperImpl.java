@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 import org.jboss.logging.Logger;
 import org.springframework.stereotype.Component;
 
-import in.bananaa.pass.api.type.GenericErrorCodeType;
+import in.bananaa.pass.dto.type.GenericErrorCodeType;
 import in.bananaa.pass.helper.exception.BusinessException;
 import in.bananaa.pass.helper.exception.BusinessNoRollbackException;
 import in.bananaa.pass.helper.exception.ErrorCodesGettable;

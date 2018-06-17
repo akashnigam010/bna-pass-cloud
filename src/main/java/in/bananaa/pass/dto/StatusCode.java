@@ -1,4 +1,4 @@
-package in.bananaa.pass.api.login;
+package in.bananaa.pass.dto;
 
 public class StatusCode {
 	public Integer code;
