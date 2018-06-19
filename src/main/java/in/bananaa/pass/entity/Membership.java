@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,11 +30,11 @@ public class Membership extends BaseEntity implements Serializable {
 		ALL_DAYS, WEEKDAYS, WEEKENDS;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MEMBER_ID", nullable = false)
 	private Member member;
 
@@ -131,5 +132,13 @@ public class Membership extends BaseEntity implements Serializable {
 
 	public void setEndDate(Calendar endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getScanCode() {
+		return scanCode;
+	}
+
+	public void setScanCode(String scanCode) {
+		this.scanCode = scanCode;
 	}
 }

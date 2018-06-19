@@ -1,45 +1,24 @@
-package in.bananaa.pass.entity;
+package in.bananaa.pass.dto.member;
 
-import java.io.Serializable;
-import java.util.Calendar;
+import in.bananaa.pass.dto.GenericRequest;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Index;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "MEMBER", schema = "bna", indexes = { @Index(name = "IDX_UNQ_PHONE", columnList = "PHONE") })
-public class Member extends BaseEntity implements Serializable {
+public class MemberDto extends GenericRequest {
 	private static final long serialVersionUID = 1L;
-
-	@Column(name = "FIRST_NAME", nullable = false)
+	private Integer id;
 	private String firstName;
-
-	@Column(name = "LAST_NAME")
 	private String lastName;
-
-	@Column(name = "IMAGE_URL")
 	private String imageUrl;
-
-	@Column(name = "PHONE", nullable = false)
 	private String phone;
-
-	@Column(name = "EMAIL")
 	private String email;
-
-	@Column(name = "ID_PROOF")
 	private String idProof;
-
-	@Column(name = "ADDRESS")
 	private String address;
 
-	public Member() {
-
+	public Integer getId() {
+		return id;
 	}
 
-	public Member(Calendar createdDateTime, Calendar updatedDateTime) {
-		super(createdDateTime, updatedDateTime);
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {

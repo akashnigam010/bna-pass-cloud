@@ -1,19 +1,19 @@
 package in.bananaa.pass.dto.scan;
 
 import in.bananaa.pass.dto.GenericResponse;
-import in.bananaa.pass.dto.member.Member;
+import in.bananaa.pass.dto.member.MemberResponse;
 
 public class ScanResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
-	private Member member;
+	private MemberResponse member;
 	private boolean isValid;
 	private String reason;
 
-	public Member getMember() {
+	public MemberResponse getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(MemberResponse member) {
 		this.member = member;
 	}
 

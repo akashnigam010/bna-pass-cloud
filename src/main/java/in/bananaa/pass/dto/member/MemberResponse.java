@@ -3,7 +3,7 @@ package in.bananaa.pass.dto.member;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class Member implements Serializable {
+public class MemberResponse implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;

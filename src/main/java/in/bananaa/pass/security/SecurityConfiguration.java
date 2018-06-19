@@ -28,9 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers("/", "/user/**").permitAll();
-		//http.authorizeRequests().antMatchers("/search/**").authenticated();
 		http.authorizeRequests().antMatchers("/scan/**").authenticated().and()
 		.addFilterBefore(customJwtAuthenticationFilter("/scan/**"),
+				AbstractPreAuthenticatedProcessingFilter.class);
+		http.authorizeRequests().antMatchers("/membership/**").authenticated().and()
+		.addFilterBefore(customJwtAuthenticationFilter("/membership/**"),
 				AbstractPreAuthenticatedProcessingFilter.class);
 		http.csrf().disable();
 	}

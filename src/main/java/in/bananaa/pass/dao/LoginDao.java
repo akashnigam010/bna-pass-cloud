@@ -30,4 +30,11 @@ public class LoginDao {
 		User user = (User) criteria.uniqueResult();
 		return Optional.ofNullable(user);
 	}
+	
+	public Optional<User> getUser(Integer id) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("id", id));
+		User user = (User) criteria.uniqueResult();
+		return Optional.ofNullable(user);
+	}
 }

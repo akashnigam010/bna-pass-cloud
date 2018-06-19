@@ -11,7 +11,11 @@ public enum GenericErrorCodeType implements BusinessErrorCode {
 
 	USER_NOT_LOGGED_IN(90004),
 
-	USER_NOT_FOUND(90005);
+	USER_NOT_FOUND(90005),
+	
+	MEMBER_NOT_FOUND(90006),
+	
+	MEMBERSHIP_NOT_FOUND(90007);
 
 	private int value;
 
