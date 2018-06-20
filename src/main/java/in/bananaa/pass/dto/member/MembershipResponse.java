@@ -7,7 +7,7 @@ import in.bananaa.pass.entity.Membership.Status;
 public class MembershipResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
-	private MemberDto member;
+	private MemberRequest member;
 	private Status status;
 	private String description;
 	private DayType dayType;
@@ -23,11 +23,11 @@ public class MembershipResponse extends GenericResponse {
 		this.id = id;
 	}
 
-	public MemberDto getMember() {
+	public MemberRequest getMember() {
 		return member;
 	}
 
-	public void setMember(MemberDto member) {
+	public void setMember(MemberRequest member) {
 		this.member = member;
 	}
 

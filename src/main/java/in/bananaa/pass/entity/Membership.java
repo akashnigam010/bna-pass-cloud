@@ -1,5 +1,7 @@
 package in.bananaa.pass.entity;
 
+import static java.util.Calendar.*;
+
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -21,13 +23,42 @@ import javax.persistence.Table;
 		@Index(name = "IDX_UNQ_SCAN_CODE", columnList = "SCAN_CODE") })
 public class Membership extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+	public static final String EMPTY_STRING = "";
 
 	public enum Status {
-		ACTIVE, BLOCKED;
+		ACTIVE, BLOCKED, SYSTEM_BLOCKED;
 	}
 
 	public enum DayType {
 		ALL_DAYS, WEEKDAYS, WEEKENDS;
+
+		public boolean isAccessAllowed() {
+			final Calendar c = Calendar.getInstance();
+			int day = c.get(DAY_OF_WEEK);
+			if (this == ALL_DAYS) {
+				return true;
+			} else if (this == WEEKDAYS) {
+				if (day == MONDAY || day == TUESDAY || day == WEDNESDAY || day == THURSDAY || day == FRIDAY) {
+					return true;
+				}
+			} else {
+				if (day == SATURDAY || day == SUNDAY) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public String getRejectionReason() {
+			if (this == ALL_DAYS) {
+				return EMPTY_STRING;
+			} else if (this == WEEKDAYS) {
+				return "Membership access only for Weekdays";
+			} else if (this == WEEKENDS) {
+				return "Membership access only for Weekends";
+			}
+			return EMPTY_STRING;
+		}
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -95,6 +126,10 @@ public class Membership extends BaseEntity implements Serializable {
 	}
 
 	public Description getDescription() {
+		if (this.description == null) {
+			Calendar calendar = Calendar.getInstance();
+			this.description = new Description(calendar, calendar);
+		}
 		return description;
 	}
 

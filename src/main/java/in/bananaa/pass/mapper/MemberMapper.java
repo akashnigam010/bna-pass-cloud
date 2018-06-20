@@ -6,11 +6,11 @@ import java.util.Calendar;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
-import in.bananaa.pass.dto.member.MemberDto;
+import in.bananaa.pass.dto.member.MemberRequest;
+import in.bananaa.pass.dto.member.MemberResponse;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
 import in.bananaa.pass.dto.type.GenericErrorCodeType;
-import in.bananaa.pass.entity.Description;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
 import in.bananaa.pass.entity.User;
@@ -21,7 +21,7 @@ import in.bananaa.pass.helper.exception.BusinessException;
 @Component
 public class MemberMapper {
 
-	public Member map(MemberDto request, Member member) {
+	public Member map(MemberRequest request, Member member) {
 		member.setFirstName(request.getFirstName());
 		member.setLastName(request.getLastName());
 		member.setImageUrl(request.getImageUrl());
@@ -33,8 +33,8 @@ public class MemberMapper {
 		return member;
 	}
 
-	public MemberDto map(Member member) {
-		MemberDto memberDto = new MemberDto();
+	public MemberRequest map(Member member) {
+		MemberRequest memberDto = new MemberRequest();
 		memberDto.setId(member.getId());
 		memberDto.setFirstName(member.getFirstName());
 		memberDto.setLastName(member.getLastName());
@@ -48,16 +48,15 @@ public class MemberMapper {
 
 	public Membership map(MembershipRequest request, Membership membership, Member member, User user)
 			throws BusinessException {
+		Calendar calendar = Calendar.getInstance();
 		membership.setMember(member);
 		membership.setUser(user);
 		membership.setStatus(request.getStatus());
 		membership.setDayType(request.getDayType());
 		membership.setEntriesPerDay(request.getEntriesPerDay());
 		if (StringUtils.isNotBlank(request.getDescription())) {
-			Calendar calendar = Calendar.getInstance();
-			Description description = new Description(calendar, calendar);
-			description.setDescription(request.getDescription());
-			membership.setDescription(description);
+			membership.getDescription().setDescription(request.getDescription());
+			membership.getDescription().setUpdatedDateTime(calendar);
 		}
 
 		try {
@@ -68,7 +67,7 @@ public class MemberMapper {
 		} catch (ParseException e) {
 			throw new BusinessException(GenericErrorCodeType.GENERIC_ERROR);
 		}
-		membership.setUpdatedDateTime(Calendar.getInstance());
+		membership.setUpdatedDateTime(calendar);
 		return membership;
 	}
 
@@ -85,6 +84,15 @@ public class MemberMapper {
 		response.setStartDate(
 				DateTimeUtil.formatDate(membership.getStartDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
 		response.setEndDate(DateTimeUtil.formatDate(membership.getEndDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
+		return response;
+	}
+
+	public MemberResponse mapCreateMemberResponse(Member member) {
+		MemberResponse response = new MemberResponse();
+		response.setId(member.getId());
+		response.setFirstName(member.getFirstName());
+		response.setLastName(member.getLastName());
+		response.setImageUrl(member.getImageUrl());
 		return response;
 	}
 }

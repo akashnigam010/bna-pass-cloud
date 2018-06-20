@@ -2,7 +2,7 @@ package in.bananaa.pass.dto.member;
 
 import in.bananaa.pass.dto.GenericRequest;
 
-public class MemberDto extends GenericRequest {
+public class MemberRequest extends GenericRequest {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String firstName;

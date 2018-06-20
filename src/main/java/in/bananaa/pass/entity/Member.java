@@ -5,11 +5,12 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
+
 @Entity
-@Table(name = "MEMBER", schema = "bna", indexes = { @Index(name = "IDX_UNQ_PHONE", columnList = "PHONE") })
+@Table(name = "MEMBER", schema = "bna")
 public class Member extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -51,7 +52,7 @@ public class Member extends BaseEntity implements Serializable {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return StringUtils.isNotBlank(this.lastName) ? this.lastName : "";
 	}
 
 	public void setLastName(String lastName) {
@@ -96,5 +97,9 @@ public class Member extends BaseEntity implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getName() {
+		return StringUtils.strip(this.getFirstName() + " " + this.getLastName());
 	}
 }

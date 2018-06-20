@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import in.bananaa.pass.dto.IdRequest;
 import in.bananaa.pass.dto.StatusResponse;
+import in.bananaa.pass.dto.member.BlockMembershipRequest;
+import in.bananaa.pass.dto.member.MemberRequest;
+import in.bananaa.pass.dto.member.MemberResponse;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
 import in.bananaa.pass.helper.exception.BusinessException;
@@ -23,6 +26,16 @@ public class MembershipController extends GenericController {
 
 	@Autowired
 	private MembershipValidator validator;
+
+	@RequestMapping(value = "/createOrUpdateMember", method = RequestMethod.POST, headers = HEADER)
+	public MemberResponse createOrUpdateMember(@RequestBody MemberRequest request) {
+		try {
+			validator.validate(request);
+			return responseHelper.success(service.createOrUpdateMember(request));
+		} catch (BusinessException e) {
+			return responseHelper.failure(new MemberResponse(), e);
+		}
+	}
 
 	@RequestMapping(value = "/getMembership", method = RequestMethod.POST, headers = HEADER)
 	public MembershipResponse getMembership(@RequestBody IdRequest request) {
@@ -40,6 +53,18 @@ public class MembershipController extends GenericController {
 		try {
 			validator.validate(request);
 			service.createOrUpdateMembership(request);
+			return responseHelper.success(response);
+		} catch (BusinessException e) {
+			return responseHelper.failure(response, e);
+		}
+	}
+	
+	@RequestMapping(value = "/blockMembership", method = RequestMethod.POST, headers = HEADER)
+	public StatusResponse blockMembership(@RequestBody BlockMembershipRequest request) {
+		StatusResponse response = new StatusResponse();
+		try {
+			validator.validate(request);
+			service.blockMembership(request);
 			return responseHelper.success(response);
 		} catch (BusinessException e) {
 			return responseHelper.failure(response, e);

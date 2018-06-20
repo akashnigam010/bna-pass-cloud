@@ -1,15 +1,13 @@
 package in.bananaa.pass.dto.member;
 
-import java.io.Serializable;
-import java.util.Calendar;
+import in.bananaa.pass.dto.GenericResponse;
 
-public class MemberResponse implements Serializable {
+public class MemberResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
-	private String name;
+	private String firstName;
+	private String lastName;
 	private String imageUrl;
-	private Calendar fromDate;
-	private Calendar toDate;
 
 	public Integer getId() {
 		return id;
@@ -19,12 +17,20 @@ public class MemberResponse implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getImageUrl() {
@@ -33,21 +39,5 @@ public class MemberResponse implements Serializable {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-
-	public Calendar getFromDate() {
-		return fromDate;
-	}
-
-	public void setFromDate(Calendar fromDate) {
-		this.fromDate = fromDate;
-	}
-
-	public Calendar getToDate() {
-		return toDate;
-	}
-
-	public void setToDate(Calendar toDate) {
-		this.toDate = toDate;
 	}
 }

@@ -22,8 +22,8 @@ public class ScanController extends GenericController {
 	@Autowired
 	private ScanValidator validator;
 
-	@RequestMapping(value = "/check", method = RequestMethod.POST, headers = HEADER)
-	public ScanResponse checkUser(@RequestBody ScanRequest request) {
+	@RequestMapping(value = "/do", method = RequestMethod.POST, headers = HEADER)
+	public ScanResponse checkinUser(@RequestBody ScanRequest request) {
 		try {
 			validator.validate(request);
 			return responseHelper.success(service.verifyScan(request));
