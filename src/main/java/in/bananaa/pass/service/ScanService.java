@@ -7,10 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import in.bananaa.pass.dao.MembershipDao;
+import in.bananaa.pass.dao.ScanDao;
 import in.bananaa.pass.dto.scan.ScanRequest;
 import in.bananaa.pass.dto.scan.ScanResponse;
 import in.bananaa.pass.dto.type.GenericErrorCodeType;
@@ -26,7 +24,7 @@ import in.bananaa.pass.security.JwtTokenHelper;
 public class ScanService {
 
 	@Autowired
-	private MembershipDao dao;
+	private ScanDao dao;
 
 	@Autowired
 	private JwtTokenHelper tokenHelper;
@@ -34,7 +32,6 @@ public class ScanService {
 	@Autowired
 	private ScanMapper mapper;
 
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
 	public ScanResponse verifyScan(ScanRequest request) throws BusinessException {
 		ScanResponse response = new ScanResponse();
 		Membership membership = null;
@@ -84,6 +81,16 @@ public class ScanService {
 		// Otherwise, access is allowed
 		response.setAllowed(true);
 
-		// TODO : checkin user
+		saveScanAsync(membership);
+
+	}
+
+	private void saveScanAsync(Membership membership) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				dao.saveScan(mapper.createScan(membership));
+			}
+		}).start();
 	}
 }

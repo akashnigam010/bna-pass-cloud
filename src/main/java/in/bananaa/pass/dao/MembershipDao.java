@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import in.bananaa.pass.dto.member.BlockMembershipRequest;
-import in.bananaa.pass.dto.scan.ScanRequest;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
 
@@ -54,15 +53,6 @@ public class MembershipDao {
 		criteria.createAlias("user", "user");
 		criteria.add(Restrictions.eq("user.id", userId));
 		criteria.add(Restrictions.eq("id", request.getId()));
-		Membership membership = (Membership) criteria.uniqueResult();
-		return Optional.ofNullable(membership);
-	}
-	
-	public Optional<Membership> getMembership(ScanRequest request, Integer userId) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Membership.class);
-		criteria.createAlias("user", "user");
-		criteria.add(Restrictions.eq("user.id", userId));
-		criteria.add(Restrictions.eq("scanCode", request.getCode()));
 		Membership membership = (Membership) criteria.uniqueResult();
 		return Optional.ofNullable(membership);
 	}

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SCAN", schema = "bna", indexes = {
-		@Index(name = "IDX_UNQ_USER_MEMBER", columnList = "USER_ID, MEMBER_ID") })
+		@Index(name = "IDX_USER", columnList = "USER_ID") })
 public class Scan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,6 +34,13 @@ public class Scan implements Serializable {
 
 	@Column(name = "CREATED_DATETIME", nullable = false)
 	private Calendar createdDateTime;
+
+	public Scan() {
+	}
+
+	public Scan(Calendar createdDateTime) {
+		this.createdDateTime = createdDateTime;
+	}
 
 	public Integer getId() {
 		return id;
