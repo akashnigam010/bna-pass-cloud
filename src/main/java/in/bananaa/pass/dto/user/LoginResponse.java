@@ -4,33 +4,18 @@ import in.bananaa.pass.dto.GenericResponse;
 
 public class LoginResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
-	private Integer id;
-	private String name;
-	private String location;
+	private User user;
 	private String accessToken;
 
-	public Integer getId() {
-		return id;
+	public User getUser() {
+		if (this.user == null) {
+			this.user = new User();
+		}
+		return user;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getAccessToken() {

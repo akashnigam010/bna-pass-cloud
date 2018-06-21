@@ -76,7 +76,7 @@ public class MemberMapper {
 		response.setId(membership.getId());
 		response.setMember(map(membership.getMember()));
 		response.setStatus(membership.getStatus());
-		if (membership.getDescription() != null) {
+		if (StringUtils.isNotBlank(membership.getDescription().getDescription())) {
 			response.setDescription(membership.getDescription().getDescription());
 		}
 		response.setDayType(membership.getDayType());

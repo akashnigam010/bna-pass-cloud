@@ -7,10 +7,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import in.bananaa.pass.dto.member.BlockMembershipRequest;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
+import in.bananaa.pass.helper.exception.BusinessException;
 
 @Repository
 public class MembershipDao {
@@ -31,6 +34,7 @@ public class MembershipDao {
 		return Optional.ofNullable(member);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
 	public Optional<Membership> getMembership(Integer id) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Membership.class);
 		criteria.add(Restrictions.eq("id", id));

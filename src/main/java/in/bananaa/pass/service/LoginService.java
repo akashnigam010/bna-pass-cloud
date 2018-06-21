@@ -27,9 +27,9 @@ public class LoginService {
 		if (optionalUser.isPresent()) {
 			User user = optionalUser.get();
 			LoginResponse response = new LoginResponse();
-			response.setId(user.getId());
-			response.setName(user.getName());
-			response.setLocation(user.getLocation());
+			response.getUser().setId(user.getId());
+			response.getUser().setName(user.getName());
+			response.getUser().setLocation(user.getLocation());
 			response.setAccessToken(getAccessToken(response));
 			return response;
 		} else {
@@ -38,6 +38,6 @@ public class LoginService {
 	}
 
 	private String getAccessToken(LoginResponse response) throws BusinessException {
-		return JwtHelper.createJsonWebTokenForUser(response.getId().toString(), response.getName());
+		return JwtHelper.createJsonWebTokenForUser(response.getUser().getId().toString(), response.getUser().getName());
 	}
 }

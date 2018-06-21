@@ -47,7 +47,6 @@ public class MembershipService {
 	@Autowired
 	private MemberMapper mapper;
 
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
 	public MembershipResponse getMembership(IdRequest request) throws BusinessException {
 		Optional<Membership> optionalMembership = dao.getMembership(request.getId());
 		if (optionalMembership.isPresent()) {
