@@ -1,6 +1,7 @@
 package in.bananaa.pass.service;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 import org.jboss.logging.Logger;
@@ -13,11 +14,13 @@ import in.bananaa.pass.dao.LoginDao;
 import in.bananaa.pass.dao.MembershipDao;
 import in.bananaa.pass.dto.GenericRequest.RequestType;
 import in.bananaa.pass.dto.IdRequest;
+import in.bananaa.pass.dto.PageRequest;
 import in.bananaa.pass.dto.member.BlockMembershipRequest;
 import in.bananaa.pass.dto.member.MemberRequest;
 import in.bananaa.pass.dto.member.MemberResponse;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
+import in.bananaa.pass.dto.member.MembershipsResponse;
 import in.bananaa.pass.dto.type.GenericErrorCodeType;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
@@ -54,6 +57,15 @@ public class MembershipService {
 		} else {
 			throw new BusinessException(GenericErrorCodeType.MEMBERSHIP_NOT_FOUND);
 		}
+	}
+
+	public MembershipsResponse getMemberships(PageRequest request) throws BusinessException {
+		MembershipsResponse response = new MembershipsResponse();
+		Optional<List<Membership>> membershipsOptional = dao.getMemberships(request, tokenHelper.getId());
+		if (membershipsOptional.isPresent()) {
+			mapper.map(membershipsOptional.get(), response);
+		}
+		return response;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)

@@ -1,5 +1,6 @@
 package in.bananaa.pass.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.Criteria;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import in.bananaa.pass.dto.PageRequest;
 import in.bananaa.pass.dto.member.BlockMembershipRequest;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
@@ -40,6 +42,18 @@ public class MembershipDao {
 		criteria.add(Restrictions.eq("id", id));
 		Membership membership = (Membership) criteria.uniqueResult();
 		return Optional.ofNullable(membership);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
+	public Optional<List<Membership>> getMemberships(PageRequest pageRequest, Integer userId) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Membership.class);
+		criteria.createAlias("user", "user");
+		criteria.add(Restrictions.eq("user.id", userId));
+		int firstResult = ((pageRequest.getPageNumber() - 1) * pageRequest.getResultsPerPage());
+		criteria.setFirstResult(firstResult);
+		criteria.setMaxResults(pageRequest.getResultsPerPage());
+		List<Membership> memberships = criteria.list();
+		return Optional.ofNullable(memberships);
 	}
 
 	public Optional<Membership> getMembership(Integer userId, Integer memberId) {

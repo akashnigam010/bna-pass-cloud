@@ -6,7 +6,7 @@ import in.bananaa.pass.dto.member.MemberResponse;
 public class ScanResponse extends GenericResponse {
 	private static final long serialVersionUID = 1L;
 	private MemberResponse member;
-	private boolean isAllowed = false;
+	private boolean allowed = false;
 	private String reason;
 	private String startDate;
 	private String endDate;
@@ -23,11 +23,11 @@ public class ScanResponse extends GenericResponse {
 	}
 
 	public boolean isAllowed() {
-		return isAllowed;
+		return allowed;
 	}
 
 	public void setAllowed(boolean isAllowed) {
-		this.isAllowed = isAllowed;
+		this.allowed = isAllowed;
 	}
 
 	public String getReason() {

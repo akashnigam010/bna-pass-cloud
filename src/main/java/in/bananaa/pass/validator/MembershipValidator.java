@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import in.bananaa.pass.dto.GenericRequest.RequestType;
 import in.bananaa.pass.dto.IdRequest;
+import in.bananaa.pass.dto.PageRequest;
 import in.bananaa.pass.dto.member.BlockMembershipRequest;
 import in.bananaa.pass.dto.member.MemberRequest;
 import in.bananaa.pass.dto.member.MembershipRequest;
@@ -59,5 +60,12 @@ public class MembershipValidator {
 		if (request.getType() == RequestType.UPDATE && request.getId() == null) {
 			throw new BusinessException(GenericErrorCodeType.REQUEST_VALIDATION_FAILED);
 		}
+	}
+
+	public void validate(PageRequest request) throws BusinessException {
+		if (request.getPageNumber() == null || request.getResultsPerPage() == null) {
+			throw new BusinessException(GenericErrorCodeType.REQUEST_VALIDATION_FAILED);
+		}
+		
 	}
 }

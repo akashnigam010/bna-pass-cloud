@@ -19,6 +19,7 @@ public class ScanMapper {
 		response.getMember().setId(member.getId());
 		response.getMember().setFirstName(member.getFirstName());
 		response.getMember().setLastName(member.getLastName());
+		response.getMember().setImageUrl(member.getImageUrl());
 		response.setStartDate(
 				DateTimeUtil.formatDate(membership.getStartDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
 		response.setEndDate(DateTimeUtil.formatDate(membership.getEndDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));

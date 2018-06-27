@@ -33,7 +33,7 @@ public class LoginService {
 			response.setAccessToken(getAccessToken(response));
 			return response;
 		} else {
-			throw new BusinessException(GenericErrorCodeType.USER_NOT_FOUND);
+			throw new BusinessException(GenericErrorCodeType.INCORRECT_LOGIN);
 		}
 	}
 

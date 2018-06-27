@@ -23,6 +23,14 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
+		
+		if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
+			response.setStatus(200);
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			response.setHeader("Access-Control-Allow-Methods", "GET, POST");
+			response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, X-Requested-With");
+			return null;
+		}
 
 		String header = request.getHeader("Authorization");
 

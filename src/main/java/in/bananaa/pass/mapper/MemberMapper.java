@@ -2,14 +2,17 @@ package in.bananaa.pass.mapper;
 
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import in.bananaa.pass.dto.member.MemberRequest;
 import in.bananaa.pass.dto.member.MemberResponse;
+import in.bananaa.pass.dto.member.MembershipDto;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
+import in.bananaa.pass.dto.member.MembershipsResponse;
 import in.bananaa.pass.dto.type.GenericErrorCodeType;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
@@ -73,17 +76,8 @@ public class MemberMapper {
 
 	public MembershipResponse map(Membership membership) {
 		MembershipResponse response = new MembershipResponse();
-		response.setId(membership.getId());
-		response.setMember(map(membership.getMember()));
-		response.setStatus(membership.getStatus());
-		if (StringUtils.isNotBlank(membership.getDescription().getDescription())) {
-			response.setDescription(membership.getDescription().getDescription());
-		}
-		response.setDayType(membership.getDayType());
-		response.setEntriesPerDay(membership.getEntriesPerDay());
-		response.setStartDate(
-				DateTimeUtil.formatDate(membership.getStartDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
-		response.setEndDate(DateTimeUtil.formatDate(membership.getEndDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
+		MembershipDto membershipDto = response.getMembership();
+		map(membership, membershipDto);
 		return response;
 	}
 
@@ -94,5 +88,26 @@ public class MemberMapper {
 		response.setLastName(member.getLastName());
 		response.setImageUrl(member.getImageUrl());
 		return response;
+	}
+
+	public void map(List<Membership> list, MembershipsResponse response) {
+		list.forEach(membership -> {
+			MembershipDto membershipDto = new MembershipDto();
+			map(membership, membershipDto);
+			response.getMemberships().add(membershipDto);
+		});
+	}
+
+	private void map(Membership membership, MembershipDto dto) {
+		dto.setId(membership.getId());
+		dto.setMember(map(membership.getMember()));
+		dto.setStatus(membership.getStatus());
+		if (StringUtils.isNotBlank(membership.getDescription().getDescription())) {
+			dto.setDescription(membership.getDescription().getDescription());
+		}
+		dto.setDayType(membership.getDayType());
+		dto.setEntriesPerDay(membership.getEntriesPerDay());
+		dto.setStartDate(DateTimeUtil.formatDate(membership.getStartDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
+		dto.setEndDate(DateTimeUtil.formatDate(membership.getEndDate(), DateFormatType.DATE_FORMAT_DD_MM_YYYY));
 	}
 }

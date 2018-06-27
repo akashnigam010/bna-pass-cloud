@@ -1,6 +1,7 @@
 package in.bananaa.pass.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import in.bananaa.pass.service.ScanService;
 import in.bananaa.pass.validator.ScanValidator;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/scan")
 public class ScanController extends GenericController {
 
