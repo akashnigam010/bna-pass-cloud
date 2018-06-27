@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import in.bananaa.pass.dto.member.MemberRequest;
-import in.bananaa.pass.dto.member.MemberResponse;
 import in.bananaa.pass.dto.member.MembershipDto;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
@@ -78,15 +77,6 @@ public class MemberMapper {
 		MembershipResponse response = new MembershipResponse();
 		MembershipDto membershipDto = response.getMembership();
 		map(membership, membershipDto);
-		return response;
-	}
-
-	public MemberResponse mapCreateMemberResponse(Member member) {
-		MemberResponse response = new MemberResponse();
-		response.setId(member.getId());
-		response.setFirstName(member.getFirstName());
-		response.setLastName(member.getLastName());
-		response.setImageUrl(member.getImageUrl());
 		return response;
 	}
 

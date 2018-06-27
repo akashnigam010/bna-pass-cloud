@@ -14,17 +14,15 @@ import in.bananaa.pass.dao.LoginDao;
 import in.bananaa.pass.dao.MembershipDao;
 import in.bananaa.pass.dto.GenericRequest.RequestType;
 import in.bananaa.pass.dto.IdRequest;
+import in.bananaa.pass.dto.IdResponse;
 import in.bananaa.pass.dto.PageRequest;
-import in.bananaa.pass.dto.member.BlockMembershipRequest;
 import in.bananaa.pass.dto.member.MemberRequest;
-import in.bananaa.pass.dto.member.MemberResponse;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
 import in.bananaa.pass.dto.member.MembershipsResponse;
 import in.bananaa.pass.dto.type.GenericErrorCodeType;
 import in.bananaa.pass.entity.Member;
 import in.bananaa.pass.entity.Membership;
-import in.bananaa.pass.entity.Membership.Status;
 import in.bananaa.pass.entity.User;
 import in.bananaa.pass.helper.ScanCodeHelper;
 import in.bananaa.pass.helper.exception.BusinessException;
@@ -69,23 +67,8 @@ public class MembershipService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
-	public void blockMembership(BlockMembershipRequest request) throws BusinessException {
-		Optional<Membership> optionalMembership = dao.getMembership(request, tokenHelper.getId());
-		if (optionalMembership.isPresent()) {
-			Calendar calendar = Calendar.getInstance();
-			Membership membership = optionalMembership.get();
-			membership.setStatus(Status.BLOCKED);
-			membership.getDescription().setDescription(request.getReason());
-			membership.getDescription().setUpdatedDateTime(calendar);
-			membership.setUpdatedDateTime(calendar);
-			dao.saveMembership(membership);
-		} else {
-			throw new BusinessException(GenericErrorCodeType.MEMBERSHIP_NOT_FOUND);
-		}
-	}
-
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
-	public MemberResponse createOrUpdateMember(MemberRequest request) throws BusinessException {
+	public IdResponse createOrUpdateMember(MemberRequest request) throws BusinessException {
+		IdResponse idResponse = new IdResponse();
 		Calendar calendar = Calendar.getInstance();
 		Member member = null;
 		if (request.getType() == RequestType.NEW) {
@@ -107,11 +90,13 @@ public class MembershipService {
 		} else {
 			throw new BusinessException(GenericErrorCodeType.GENERIC_ERROR);
 		}
-		return mapper.mapCreateMemberResponse(member);
+		idResponse.setId(member.getId());
+		return idResponse;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = BusinessException.class)
-	public void createOrUpdateMembership(MembershipRequest request) throws BusinessException {
+	public IdResponse createOrUpdateMembership(MembershipRequest request) throws BusinessException {
+		IdResponse idResponse = new IdResponse();
 		Calendar calendar = Calendar.getInstance();
 		Optional<User> optionalUser = loginDao.getUser(tokenHelper.getId());
 		if (optionalUser.isPresent()) {
@@ -152,6 +137,7 @@ public class MembershipService {
 				}
 
 				mapAndSaveMembership(request, membership, member, user);
+				idResponse.setId(membership.getId());
 			} else {
 				LOG.error("Error occurred while trying to create/update membership without member. User Id : "
 						+ tokenHelper.getId());
@@ -162,7 +148,7 @@ public class MembershipService {
 					+ tokenHelper.getId());
 			throw new BusinessException(GenericErrorCodeType.USER_NOT_FOUND);
 		}
-
+		return idResponse;
 	}
 
 	private void mapAndSaveMember(MemberRequest request, Member member) {

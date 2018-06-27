@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.bananaa.pass.dto.IdRequest;
+import in.bananaa.pass.dto.IdResponse;
 import in.bananaa.pass.dto.PageRequest;
-import in.bananaa.pass.dto.StatusResponse;
-import in.bananaa.pass.dto.member.BlockMembershipRequest;
 import in.bananaa.pass.dto.member.MemberRequest;
-import in.bananaa.pass.dto.member.MemberResponse;
 import in.bananaa.pass.dto.member.MembershipRequest;
 import in.bananaa.pass.dto.member.MembershipResponse;
 import in.bananaa.pass.dto.member.MembershipsResponse;
@@ -32,12 +30,12 @@ public class MembershipController extends GenericController {
 	private MembershipValidator validator;
 
 	@RequestMapping(value = "/createOrUpdateMember", method = RequestMethod.POST, headers = HEADER)
-	public MemberResponse createOrUpdateMember(@RequestBody MemberRequest request) {
+	public IdResponse createOrUpdateMember(@RequestBody MemberRequest request) {
 		try {
 			validator.validate(request);
 			return responseHelper.success(service.createOrUpdateMember(request));
 		} catch (BusinessException e) {
-			return responseHelper.failure(new MemberResponse(), e);
+			return responseHelper.failure(new IdResponse(), e);
 		}
 	}
 
@@ -50,7 +48,7 @@ public class MembershipController extends GenericController {
 			return responseHelper.failure(new MembershipResponse(), e);
 		}
 	}
-	
+
 	@RequestMapping(value = "/getMemberships", method = RequestMethod.POST, headers = HEADER)
 	public MembershipsResponse getMemberships(@RequestBody PageRequest request) {
 		try {
@@ -62,26 +60,12 @@ public class MembershipController extends GenericController {
 	}
 
 	@RequestMapping(value = "/createOrUpdateMembership", method = RequestMethod.POST, headers = HEADER)
-	public StatusResponse createOrUpdateMembership(@RequestBody MembershipRequest request) {
-		StatusResponse response = new StatusResponse();
+	public IdResponse createOrUpdateMembership(@RequestBody MembershipRequest request) {
 		try {
 			validator.validate(request);
-			service.createOrUpdateMembership(request);
-			return responseHelper.success(response);
+			return responseHelper.success(service.createOrUpdateMembership(request));
 		} catch (BusinessException e) {
-			return responseHelper.failure(response, e);
-		}
-	}
-	
-	@RequestMapping(value = "/blockMembership", method = RequestMethod.POST, headers = HEADER)
-	public StatusResponse blockMembership(@RequestBody BlockMembershipRequest request) {
-		StatusResponse response = new StatusResponse();
-		try {
-			validator.validate(request);
-			service.blockMembership(request);
-			return responseHelper.success(response);
-		} catch (BusinessException e) {
-			return responseHelper.failure(response, e);
+			return responseHelper.failure(new IdResponse(), e);
 		}
 	}
 }
